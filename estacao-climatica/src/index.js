@@ -19,6 +19,13 @@ class App extends React.Component{
         }
     }
 
+    icones = {
+        'Verão': 'fa-sun',
+        'Inverno': 'fa-snowflake',
+        'Primavera': 'fa-canadian-maple-leaf',
+        'Outono': 'fa-tree'
+    }
+
     obterEstacao = (data, latitude) => {
         const anoAtual = data.getFullYear()
         // 21/06: inverno/verão
