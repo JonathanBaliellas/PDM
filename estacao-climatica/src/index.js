@@ -54,8 +54,56 @@ class App extends React.Component{
         }else{
             return sul ? 'Outono' : 'Primavera'
         }
+    }
 
+    obterLocalizacao = () => {
+        /*
+            1. solicitar a localização do usuário usando getCurrentPosition
+            2. Na função callback, fazer o seguinte:
+                - Construir um novo Date (com new Date()) que representa a data atual
+                - Chamar a função obterEstacao entregando a ela a latitude e a data atual, obtendo como resposta a estação climática
+                - Utilizando o nome da estação climática obtido, acessar o objeto ícones para obter o nome do ícone
+                - Usar a função chamada setState para atualizar o estado da aplicação
+                    this.setState({... todos os valores de interesse aqui, como pares chave/valor})
 
+                    bloco 2.8.1 da apostila 5
+
+        */
+
+        //1. solicitar a localização do usuário usando getCurrentPosition
+        window.navigator.geolocation.getCurrentPosition(
+            (position) => {//Função callback
+                //2. Na função callback, fazer o seguinte:
+                    //- Construir um novo Date (com new Date()) que representa a data atual
+                let dataAtual = new Date()
+                let {latitude, longitude} = position.coords //desestruturado
+
+                //- Chamar a função obterEstacao entregando a ela a latitude e a data atual, obtendo como resposta a estação climática
+                let estacao = this.obterEstacao(dataAtual, latitude)
+
+                //- Utilizando o nome da estação climática obtido, acessar o objeto ícones para obter o nome do ícone
+                let icone = this.icones[estacao]
+
+                /**
+                 * - Usar a função chamada setState para atualizar o estado da aplicação
+                    this.setState({... todos os valores de interesse aqui, como pares chave/valor})
+                 */
+                this.setState(
+                    {
+                        latitude: latitude,
+                        longitude: longitude,
+                        estacao: estacao,
+                        data: dataAtual,
+                        icone: icone
+                    }
+                )
+                console.log(this.state)
+            },
+            (erro) => {
+
+            }
+        )
+        
     }
 
     render(){ //é preciso ter a função render, que não recebe parâmetros
