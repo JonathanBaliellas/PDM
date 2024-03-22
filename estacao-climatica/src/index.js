@@ -15,7 +15,8 @@ class App extends React.Component {
             longitude: null,
             estacao: null,
             data: null,
-            icone: null
+            icone: null,
+            msgErro: null
         }
     }
 
@@ -100,7 +101,11 @@ class App extends React.Component {
                 console.log(this.state)
             },
             (erro) => {
-
+                this.setState(
+                    {
+                        msgErro: 'Tente novamente mais tarde'
+                    }
+                )
             }
         )
 
@@ -125,9 +130,14 @@ class App extends React.Component {
                                 <div>
                                     <p className="text-center">
                                         {
-                                            this.state.latitude ? `Coordenadas: ${this.state.latitude}, ${this.state.longitude} . 
-                                            Data: ${this.state.data}` :
-                                            `Clique no botão para saber a sua estação climática`
+                                            this.state.latitude ? 
+                                                `Coordenadas: ${this.state.latitude}, ${this.state.longitude} \n 
+                                                Data: ${this.state.data}` 
+                                                :
+                                                this.state.msgErro ?
+                                                    `${this.state.msgErro}` 
+                                                    :
+                                                    `Clique no botão para saber a sua estação climática`
                                         }
                                     </p>
                                 </div>
