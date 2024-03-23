@@ -8,17 +8,28 @@ class App extends React.Component {
     //     console.log(position.coords.latitude)
     // })
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            latitude: null,
-            longitude: null,
-            estacao: null,
-            data: null,
-            icone: null,
-            msgErro: null
-        }
-        console.log('constructor')
+    //O construtor deixa de ser escrito explicitamente, então comentamos sua definição
+    // constructor(props) {
+    //     super(props)
+    //     this.state = {
+    //         latitude: null,
+    //         longitude: null,
+    //         estacao: null,
+    //         data: null,
+    //         icone: null,
+    //         msgErro: null
+    //     }
+    //     console.log('constructor')
+    // }
+
+    //Inicializando o estado sem usar o construtor
+    state = {
+        latitude: null,
+        longitude: null,
+        estacao: null,
+        data: null,
+        icone: null,
+        msgErro: null
     }
 
     icones = {
