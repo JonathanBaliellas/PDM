@@ -18,6 +18,7 @@ class App extends React.Component {
             icone: null,
             msgErro: null
         }
+        console.log('constructor')
     }
 
     icones = {
@@ -25,6 +26,19 @@ class App extends React.Component {
         'Inverno': 'fa-snowflake',
         'Primavera': 'fa-clover',
         'Outono': 'fa-tree'
+    }
+
+    componentDidMount(){
+        console.log('componentDidMount')
+        this.obterLocalizacao()
+    }
+
+    componentDidUpdate(){
+        console.log('componentDidUpdate')
+    }
+
+    componentWillUnmount(){
+        console.log('componentWillUnmount')
     }
 
     obterEstacao = (data, latitude) => {
@@ -112,6 +126,7 @@ class App extends React.Component {
     }
 
     render() { //é preciso ter a função render, que não recebe parâmetros
+        console.log('render')
         return (
             <div className="container mt-2">
                 <div className="row justify-content-center">
