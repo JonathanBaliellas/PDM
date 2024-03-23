@@ -11,16 +11,30 @@ class App extends React.Component {
     }
 
     gerarNum = () => {
+        let num = []
         for(let i = 0; i < 6; i++){
-            this.state.num[i] = Math.ceil(Math.random() * 60)
+            let sorteio = Math.ceil(Math.random() * 60)
+            while(num.includes(sorteio)){
+                sorteio = Math.ceil(Math.random() * 60)
+            }
+            num.push(sorteio)
         }
+        this.setState(
+            {
+                num: num
+            }
+        )
+    }
+
+    componentDidMount(){
+        this.gerarNum()
     }
 
     render() {
         const cardSorteio = []
         for(let i = 0; i < 6; i++){
             cardSorteio.push(
-                <div className="p-4 bg-success border col-1" key={i}>{this.state.num[i]}</div>
+                <div className="px-2 py-2 bg-success border col-1 text-center" key={i}>{this.state.num[i]}</div>
             )
         }
 
@@ -33,7 +47,9 @@ class App extends React.Component {
                         </div>
                         <div className="card-body row justify-content-center">
                             {cardSorteio}
-                            <button className="btn btn-outline-success mt-2 col-10">
+                            <button 
+                                className="btn btn-outline-success mt-2 col-10"
+                                onClick={() => this.gerarNum()}>
                                 Gerar jogo
                             </button>
                         </div>
