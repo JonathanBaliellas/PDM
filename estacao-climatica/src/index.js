@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import '@fortawesome/fontawesome-free/css/all.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import EstacaoClimatica from './EstacaoClimatica'
 
 class App extends React.Component {
     // window.navigator.geolocation.getCurrentPosition((position) => {
@@ -142,45 +143,22 @@ class App extends React.Component {
             <div className="container mt-2">
                 <div className="row justify-content-center">
                     <div className="col-sm-12 col-md-8">
-                        {/* Cartão do Bootstrap */}
-                        <div className="card">
-                            <div className="card-body">
-                                <div
-                                    className="d-flex align-items-center border rounded mb-2"
-                                    style={{ height: '6rem' }}
-                                    >
-                                    {/* Ícone */}
-                                    <i className={`fa-solid fa-5x ${this.state.icone}`}></i>
-                                    <p className="w-75 ms-3 text-center fs-1">{this.state.estacao}</p>
-                                </div>
-                                <div>
-                                    <p className="text-center">
-                                        {
-                                            this.state.latitude ? 
-                                                `Coordenadas: ${this.state.latitude}, ${this.state.longitude} \n 
-                                                Data: ${this.state.data}` 
-                                                :
-                                                this.state.msgErro ?
-                                                    `${this.state.msgErro}` 
-                                                    :
-                                                    `Clique no botão para saber a sua estação climática`
-                                        }
-                                    </p>
-                                </div>
-                                <button 
-                                    className="btn btn-outline-primary w-100 mt-2"
-                                    onClick={() => this.obterLocalizacao()}>
-                                    Qual a minha estação?
-                                </button>
-                                <button 
-                                    className='btn mt-2 btn-outline-danger w-100'
-                                    onClick={() => {
-                                        ReactDOM.unmountComponentAtNode(document.querySelector('#root'))
-                                    }}>
-                                        Desmontar (cuidado!)
-                                </button>
-                            </div>
-                        </div>
+                        {
+                            this.state.msgErro ?
+                                <p className="border rounded p-2 fs-1 text-center">
+                                    É preciso dar permissão de acesso à localização. Atualize e tente de novo
+                                </p>
+                            :
+                                /* Cartão do Bootstrap */
+                                <EstacaoClimatica
+                                    icone={this.state.icone}
+                                    estacao={this.state.estacao}
+                                    latitude={this.state.latitude}
+                                    longitude={this.state.longitude}
+                                    msgErro={this.state.msgErro}
+                                    obterLocalizacao={this.obterLocalizacao}
+                                />
+                        }
                     </div>
                 </div>
             </div>
