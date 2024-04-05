@@ -3,6 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import EstacaoClimatica from './EstacaoClimatica'
+import Loading from './Loading'
 
 class App extends React.Component {
     // window.navigator.geolocation.getCurrentPosition((position) => {
@@ -144,6 +145,9 @@ class App extends React.Component {
                 <div className="row justify-content-center">
                     <div className="col-sm-12 col-md-8">
                         {
+                            !this.state.latitude && !this.state.msgErro ?
+                                <Loading mensagem="Por favor, responda à solicitação de localização" />
+                            :
                             this.state.msgErro ?
                                 <p className="border rounded p-2 fs-1 text-center">
                                     É preciso dar permissão de acesso à localização. Atualize e tente de novo
