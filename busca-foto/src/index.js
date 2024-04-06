@@ -1,5 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react' //imr
+import ReactDOM from 'react-dom' //imrd
 import App from './components/App'
 
 import 'primereact/resources/primereact.css'
