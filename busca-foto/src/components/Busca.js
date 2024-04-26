@@ -6,14 +6,23 @@ import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 
 export default class Busca extends Component {
+  state = {
+    termoDeBusca: ''
+  }
+  onTermoAlterado = (event) => {
+    // console.log(event.target.value)
+    this.setState({termoDeBusca: event.target.value})
+  }
   render() {
     return (
       <div className='flex flex-column'>
         <IconField iconPosition='left'>
             <InputIcon className='pi pi-search'></InputIcon>
             <InputText 
+                value={this.state.termoDeBusca.toUpperCase()}
                 placeholder={this.props.dica}
                 className='w-full py-3'
+                onChange={this.onTermoAlterado}
                 ></InputText>
         </IconField>
         <Button
