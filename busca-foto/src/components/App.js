@@ -3,6 +3,7 @@ import Busca from './Busca'
 import env from 'react-dotenv'
 import { createClient } from 'pexels'
 import ListaImagens from './ListaImagens'
+import PexelsLogo from './PexelsLogo'
 
 export default class App extends React.Component{
 // const App = () => {
@@ -28,6 +29,9 @@ export default class App extends React.Component{
     return (
       <div
         className='grid justify-content-center border-round border-1 border-400'>
+          <div className="col-12">
+            <PexelsLogo />
+          </div>
           <div className="col-12">
               <h1>Exibir uma lista de...</h1>
 
