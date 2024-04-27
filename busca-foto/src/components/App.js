@@ -1,12 +1,26 @@
 import React from 'react'
 import Busca from './Busca'
+import env from 'react-dotenv'
+import { createClient } from 'pexels'
 
 export default class App extends React.Component{
 // const App = () => {
+  state = {
+    photos: []
+  }
+
+  pexelsClient = null
+
+  componentDidMount(){
+    this.pexelsClient = createClient(env.PEXELS_KEY)
+  }
 
   onBuscaRealizada = (termo) => {
-
+    this.pexelsClient.photos.search({
+      query: termo
+    }).then(result => this.setState({photos: result.photos}))
   }
+
   render(){
     return (
       <div
@@ -21,7 +35,15 @@ export default class App extends React.Component{
                 classNameInputText="col-12 md:col-6"
                 classNameButton=""
               ></Busca>
-
+          </div>
+          <div className="col-12">
+            {
+              this.state.photos.map(photo => (
+                <div>
+                  <img src={photo.src.small} alt={photo.alt} />
+                </div>
+              ))
+            }
           </div>
       </div>
     )

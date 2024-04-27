@@ -15,6 +15,7 @@ export default class Busca extends Component {
   }
   onFormSubmit = (event) => {
     event.preventDefault()
+    this.props.onBuscaRealizada(this.state.termoDeBusca)
   }
   render() {
     return (
@@ -23,7 +24,7 @@ export default class Busca extends Component {
           <IconField iconPosition='left'>
               <InputIcon className='pi pi-search'></InputIcon>
               <InputText 
-                  value={this.state.termoDeBusca.toUpperCase()}
+                  value={this.state.termoDeBusca}
                   placeholder={this.props.dica}
                   className='w-full py-3'
                   onChange={this.onTermoAlterado}
