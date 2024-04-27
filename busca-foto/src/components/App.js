@@ -2,6 +2,7 @@ import React from 'react'
 import Busca from './Busca'
 import env from 'react-dotenv'
 import { createClient } from 'pexels'
+import ListaImagens from './ListaImagens'
 
 export default class App extends React.Component{
 // const App = () => {
@@ -18,7 +19,9 @@ export default class App extends React.Component{
   onBuscaRealizada = (termo) => {
     this.pexelsClient.photos.search({
       query: termo
-    }).then(result => this.setState({photos: result.photos}))
+    }).then(result => {
+      this.setState({photos: result.photos})
+    })
   }
 
   render(){
@@ -37,13 +40,9 @@ export default class App extends React.Component{
               ></Busca>
           </div>
           <div className="col-12">
-            {
-              this.state.photos.map(photo => (
-                <div>
-                  <img src={photo.src.small} alt={photo.alt} />
-                </div>
-              ))
-            }
+            <ListaImagens 
+              photos={this.state.photos}
+            />
           </div>
       </div>
     )
