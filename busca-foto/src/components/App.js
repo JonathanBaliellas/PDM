@@ -1,6 +1,6 @@
 import React from 'react'
 import Busca from './Busca'
-import env from 'react-dotenv'
+// import env from 'react-dotenv'
 // import { createClient } from 'pexels'
 import pexelsClient from '../utils/pexels.Client'
 import ListaImagens from './ListaImagens'
@@ -28,7 +28,7 @@ export default class App extends React.Component{
 
   onBuscaRealizada = async (termo) =>{
     const result = await pexelsClient.get('/search', {
-      params: {query: termo}
+      params: {query: termo, per_page: 20}
     })
     this.setState({photos: result.data.photos})
   }

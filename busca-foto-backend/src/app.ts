@@ -1,11 +1,12 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import axios from 'axios'
-import dotenv from 'react-dotenv'
-
-dotenv.config()
+import cors from 'cors'
 
 const app = express()
 app.use(express.json())//converte json para objeto js
+app.use(cors())
 const PEXELS_KEY = process.env.PEXELS_KEY
 
 app.get('/search', async (req, res) => {
@@ -18,7 +19,8 @@ app.get('/search', async (req, res) => {
 
     const resposta = await client.get('/search', {
         params: {
-            query: req.query.query
+            query: req.query.query,
+            per_page: req.query.per_page
         }
     })
 
