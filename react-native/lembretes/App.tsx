@@ -1,12 +1,17 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { 
+import {
+  Alert,
   FlatList,
   Pressable,
-  StyleSheet, 
+  StyleSheet,
   Text,
-  TextInput, 
-  View 
+  TextInput,
+  ToastAndroid,
+  View
 } from 'react-native';
+import IconesRedesSociais from './iconesRedesSociais'
+import IconesEdicaoRemocao from './iconesEdicaoRemocao'
 
 interface Lembrete {
   id: string
@@ -14,7 +19,7 @@ interface Lembrete {
 }
 
 export default function App() {
-  const [lembrete, setLembrete] = useState <string>('')
+  const [lembrete, setLembrete] = useState<string>('')
   const [lembretes, setLembretes] = useState<Lembrete[]>([])
 
   const adicionar = () => {
@@ -37,6 +42,35 @@ export default function App() {
     //Incluído no Pressable (onPress)
   }
 
+  const remover = (id: string) => {
+    Alert.alert(
+      'Remover lembrete', // Título
+      `Realmente quer excluir????? ${lembretes.find(l => l.id === id)?.texto}`,[ // Texto
+      //Botões
+      {
+        text: 'Cancelar',
+        style: 'cancel'
+      },
+      {
+        text: 'Remover',
+        style: 'destructive',
+        onPress: () => {
+          setLembretes(lembretesAtuais => lembretesAtuais.filter(l => l.id !== id))
+          ToastAndroid.show(
+            'Lembrete removido com sucesso',
+            ToastAndroid.LONG
+          )
+        }
+      }
+    ])
+  }
+
+  const atualizar = (id: string) => {
+    //Copiar o texto do lembrete clicado para o campo em que os lembretes são digitados
+    //O botão Salvar entra em modo de edição e não adiciona mais lembretes
+    //O botão Salvar altera o texto do lembrete atual
+  }
+
   return (
     <View style={styles.container}>
       <TextInput
@@ -48,20 +82,29 @@ export default function App() {
       <Pressable
         style={styles.button}
         onPress={adicionar}
-        >
+      >
         <Text
           style={styles.buttonText}
         >Salvar</Text>
       </Pressable>
       <FlatList
         style={styles.list}
+        keyExtractor={item => item.id}
         data={lembretes}
         renderItem={lembrete => (
-          <View>
-            <Text>{lembrete.item.texto}</Text>
+          <View style={styles.listItem}>
+            <Text style={styles.listItemText}>{lembrete.item.texto}</Text>
+            <View
+              style={styles.listItemButton}>
+              <IconesEdicaoRemocao 
+                remover={() => remover(lembrete.item.id)} 
+                atualizar={() => atualizar(lembrete.item.id)} />
+            </View>
           </View>
         )}
       />
+      {/* Componente que exibe os ícones das redes sociais */}
+      <IconesRedesSociais></IconesRedesSociais>
     </View>
   );
 }
@@ -99,6 +142,27 @@ const styles = StyleSheet.create({
     borderColor: 'lightgray',
     width: '80%',
     borderRadius: 4,
-    padding: 8
+    padding: 8,
+    marginBottom: 8,
+  },
+  listItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBlockColor: 'gray',
+    borderRadius: 8,
+    backgroundColor: '#F0F0F0',
+    textAlign: 'center',
+    margin: 8,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  listItemText: {
+    padding: 12,
+    textAlign: 'center',
+    margin: 8
+  },
+  listItemButton: {
+    width: '30%',
   }
 });
